@@ -1,9 +1,9 @@
 Description
 ===========
 
-Installs and setups the Nginx Webserver. The used packages orgininate from
-Brightbox. And also include Phussion Passenger support for Ruby 1.8.7 and
-Ruby 1.9.1
+Installs and sets up the Nginx Webserver. The used packages originate from
+Brightbox and include Phussion Passenger support for Ruby 1.8.7 and
+Ruby 1.9.1.
 
 Requirements
 ============
