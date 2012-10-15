@@ -45,7 +45,6 @@ action :create do
       if site['server']
         template "default-site-#{site['server']}.conf.erb"
       end
-      cookbook new_resource.cookbook
     end
 
   end
