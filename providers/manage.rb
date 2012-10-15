@@ -42,6 +42,10 @@ action :create do
     nginx_ng_web_app site['id'] do
       application site
       certificate cert
+      if site['server']
+        template "default-site-#{site['server']}.conf.erb"
+      end
+      cookbook new_resource.cookbook
     end
 
   end
