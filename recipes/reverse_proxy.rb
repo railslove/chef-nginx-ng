@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx_ng
-# Recipe:: default
+# Recipe:: reverse_proxy
 #
 # Copyright 2012, Railslove GmbH
 #
@@ -16,18 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "nginx_ng"
 
-package "python-software-properties"
-
-execute "apt-add-repository -y ppa:brightbox/ruby-ng"
-
-package "nginx-full"
-
-if ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/default")
-  execute "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/default"
-end
-
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
+nginx_ng_reverse_proxy "applications" do
+  action [:remove, :create]
 end

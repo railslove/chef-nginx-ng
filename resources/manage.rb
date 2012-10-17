@@ -28,3 +28,8 @@ attribute :data_bag, :kind_of => String, :default => "applications"
 attribute :certificate_data_bag, :kind_of => String, :default => "certificates"
 attribute :cookbook, :kind_of => String, :default => "nginx_ng"
 attribute :site,     :kind_of => String, :name_attribute => true
+
+def initialize(*args)
+  super
+  @action = :create
+end

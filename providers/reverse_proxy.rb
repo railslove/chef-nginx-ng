@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx_ng
-# Provider:: manage
+# Provider:: reverse_proxy
 #
 # Copyright 2012, Railslove GmbH
 #
@@ -23,32 +23,32 @@ def initialize(*args)
 end
 
 action :remove do
-  query = "NOT (#{node[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
+  query = "NOT (#{node[:roles].map{|r| "proxy_roles:#{r}" }.join(" OR ")})"
   Chef::Log.info("Running query: #{query}")
   search("#{new_resource.data_bag}", "#{query}") do |site|
-    nginx_ng_site "#{site['id']}.conf" do
+    nginx_ng_site "#{site['id']}_proxy.conf" do
       enable false
     end
-    execute "rm -rf #{node[:nginx_ng][:dir]}/sites-available/#{site['id']}.conf"
+    execute "rm -rf #{node[:nginx_ng][:dir]}/sites-available/#{site['id']}_proxy.conf"
   end
 end
 
 action :create do
-  query = "(#{node[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
+  query = "(#{node[:roles].map{|r| "proxy_roles:#{r}" }.join(" OR ")})"
   Chef::Log.info("Running query: #{query}")
 
   Chef::Log.warn("!!!! #{new_resource.cookbook} - #{new_resource.cookbook.class}")
 
   search("#{new_resource.data_bag}", "#{query}") do |item|
     site = Chef::Mixin::DeepMerge.merge(item.to_hash, (item[node.chef_environment] || {}))
-
-    cert = site['certificate'] ? search("#{new_resource.certificate_data_bag}", "id:#{site['certificate']}").first : nil
-    nginx_ng_web_app site['id'] do
+    query = "(#{site[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
+    nodes = search(:node, "#{query}").to_a
+    Chef::Log.info("Found #{nodes.count} nodes!")
+    nginx_ng_web_app "#{site['id']}_proxy" do
       application site
-      certificate cert
-      if site['server']
-        template "default-site-#{site['server']}.conf.erb"
-      end
+      external site['externals']['reverse_proxy']
+      hosts nodes
+      template "default-site-proxy.conf.erb"
     end
   end
 end

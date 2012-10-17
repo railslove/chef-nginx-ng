@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx_ng
-# Recipe:: default
+# Resources:: reverse_proxy
 #
 # Copyright 2012, Railslove GmbH
 #
@@ -17,17 +17,17 @@
 # limitations under the License.
 #
 
-package "python-software-properties"
+# Data bag application object needs a "roles": ["<some_role>"] tag, that
+# matches one of the node's roles to actually be added by the action.
+actions :create, :remove
 
-execute "apt-add-repository -y ppa:brightbox/ruby-ng"
+# :data_bag is the object to search
+# :certificate_data_bag is the object to look for certificates
+# :cookbook is the name of the cookbook that the authorized_keys template should be found in
+attribute :data_bag, :kind_of => String, :default => "applications", :name_attribute => true
+attribute :cookbook, :kind_of => String, :default => "nginx_ng"
 
-package "nginx-full"
-
-if ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/default")
-  execute "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/default"
-end
-
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
+def initialize(*args)
+  super
+  @action = :create
 end

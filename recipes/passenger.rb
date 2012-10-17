@@ -24,4 +24,5 @@ end
 
 template "/etc/nginx/conf.d/passenger.conf" do
   source "passenger.conf.erb"
+  notifies :restart, resources(:service => "nginx"), :delayed
 end
