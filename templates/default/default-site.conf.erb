@@ -10,12 +10,14 @@ server {
   <% end %>
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
+
   passenger_enabled on;
-  rails_spawn_method smart;
-  passenger_min_instances 1;
+  passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
+  passenger_min_instances <%= node[:passenger][:min_instances] %>;
+
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
 
-  <% if @certificate %>
+  <% if @certificate && @application["ssl_only"] %>
   if ($ssl_protocol = "") {
     rewrite ^   https://$server_name$request_uri? permanent;
   }
@@ -32,9 +34,11 @@ server {
   <% end %>
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
+
   passenger_enabled on;
-  rails_spawn_method smart;
-  passenger_min_instances 1;
+  passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
+  passenger_min_instances <%= node[:passenger][:min_instances] %>;
+
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
 
   ssl on;
