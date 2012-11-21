@@ -18,3 +18,12 @@ else
 end
 
 set[:nginx_ng][:client_max_body_size] = "50M"
+set[:nginx_ng][:client_body_buffer_size] = "128k"
+set[:nginx_ng][:proxy_connect_timeout] = 90
+set[:nginx_ng][:proxy_send_timeout] = 90
+set[:nginx_ng][:proxy_read_timeout] = 90
+set[:nginx_ng][:proxy_buffer_size] = "4k"
+set[:nginx_ng][:proxy_buffers] = "4 32k"
+set[:nginx_ng][:proxy_busy_buffers_size] = "64k"
+set[:nginx_ng][:proxy_temp_file_write_size] = "64k"
+set[:nginx_ng][:proxy_redirect] = "off"
