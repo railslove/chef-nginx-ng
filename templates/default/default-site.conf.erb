@@ -19,6 +19,14 @@ server {
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
 
+  location ~ ^/(assets)/  {
+    root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
+
+    gzip_static on; # to serve pre-gzipped version
+    expires max;
+    add_header Cache-Control public;
+  }
+
   <% if @certificate && @application["ssl_only"] %>
   if ($ssl_protocol = "") {
     rewrite ^   https://$server_name$request_uri? permanent;
@@ -44,6 +52,14 @@ server {
   rack_env <%= @application["rails_env"] || node.chef_environment %>;
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
+
+  location ~ ^/(assets)/  {
+    root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
+
+    gzip_static on; # to serve pre-gzipped version
+    expires max;
+    add_header Cache-Control public;
+  }
 
   ssl on;
   ssl_certificate      /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.crt;
