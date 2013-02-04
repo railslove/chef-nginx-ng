@@ -19,7 +19,7 @@
 
 package "python-software-properties"
 
-execute "apt-add-repository -y ppa:brightbox/ruby-ng"
+execute "apt-add-repository -y ppa:brightbox/ruby-ng-experimental"
 
 package "nginx-full"
 
