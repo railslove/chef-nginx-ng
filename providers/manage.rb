@@ -37,8 +37,6 @@ action :create do
   query = "(#{node[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
   Chef::Log.info("Running query: #{query}")
 
-  Chef::Log.warn("!!!! #{new_resource.cookbook} - #{new_resource.cookbook.class}")
-
   search("#{new_resource.data_bag}", "#{query}") do |item|
     site = Chef::Mixin::DeepMerge.merge(item.to_hash, (item[node.chef_environment] || {}))
 
