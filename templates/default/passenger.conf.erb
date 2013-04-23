@@ -1,4 +1,5 @@
 #
-# Dropped of by Chef at <%= Time.now %> for <%= node[:fqdn] %>
+# Dropped of by Chef for <%= node[:fqdn] %>
 
 passenger_root <%= node[:passenger][:root]%>;
+passenger_max_pool_size <%= node[:passenger][:max_pool_size]%>;
