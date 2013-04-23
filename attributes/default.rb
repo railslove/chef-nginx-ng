@@ -38,3 +38,7 @@ set[:nginx_ng][:proxy_busy_buffers_size] = "64k"
 set[:nginx_ng][:proxy_temp_file_write_size] = "64k"
 # This directive sets the text, which must be changed in response-header "Location" and "Refresh" in the response of the proxied server.
 set[:nginx_ng][:proxy_redirect] = "off"
+
+set[:nginx_ng][:ssl_protocols] = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
+set[:nginx_ng][:ssl_ciphers]   = ["RC4", "HIGH", "!aNULL", "!MD5"]
+set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"

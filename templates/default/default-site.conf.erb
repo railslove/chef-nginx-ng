@@ -62,6 +62,11 @@ server {
   }
 
   ssl on;
+
+  ssl_protocols <%= node[:nginx_ng][:ssl_protocols].join(" ") %>;
+  ssl_ciphers <%= node[:nginx_ng][:ssl_ciphers].join(":") %>;
+  ssl_prefer_server_ciphers <%= node[:nginx_ng][:ssl_prefer_server_ciphers] %>;
+
   ssl_certificate      /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.crt;
   ssl_certificate_key  /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.key;
 
