@@ -4,6 +4,7 @@ set[:passenger][:ruby_version] = "1.9.1"
 set[:passenger][:min_instances] = 1;
 set[:passenger][:max_pool_size] = 6;
 set[:passenger][:spawn_method] = "smart";
+set[:passenger][:passenger_friendly_error_pages] = "off";
 
 case platform
 when "debian","ubuntu"
