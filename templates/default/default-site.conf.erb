@@ -34,6 +34,12 @@ server {
   }
   <% end %>
 
+  <% if @application["use_canonical_host"] %>
+  if ($host != $server_name ) {
+    rewrite ^(.*)$ $scheme://$server_name$1 permanent;
+  }
+  <% end -%>
+
 }
 
 <% if @certificate %>
@@ -75,5 +81,12 @@ server {
   if ($ssl_protocol = "") {
     rewrite ^   https://$server_name$request_uri? permanent;
   }
+
+  <% if @application["use_canonical_host"] %>
+  if ($host != $server_name ) {
+    rewrite ^(.*)$ $scheme://$server_name$1 permanent;
+  }
+  <% end -%>
+
 }
 <% end %>
