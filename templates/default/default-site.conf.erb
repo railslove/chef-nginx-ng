@@ -16,6 +16,11 @@ server {
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
 
+  <% if @application["id"] %>
+  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log combined;
+  error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;
+  <% end -%>
+
   rack_env <%= @application["rails_env"] || node.chef_environment %>;
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
@@ -49,6 +54,11 @@ server {
   <% @application["server_names"].each do |name|%>
   server_name <%= name %>;
   <% end %>
+
+  <% if @application["id"] %>
+  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log combined;
+  error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;
+  <% end -%>
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
