@@ -22,6 +22,12 @@ if node[:passenger][:ruby_version] == "1.9.1"
   package "passenger-common1.9.1"
 end
 
+if node[:passenger][:ruby_version] == "2.0.0" || node[:passenger][:ruby_version] == "2.1.0"
+  node.set[:passenger][:root] = "/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini"
+  package "nginx-extras"
+  package "passenger"
+end
+
 template "/etc/nginx/conf.d/passenger.conf" do
   source "passenger.conf.erb"
   notifies :restart, resources(:service => "nginx"), :delayed
