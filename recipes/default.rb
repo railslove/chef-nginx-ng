@@ -23,8 +23,9 @@ execute "apt-add-repository -y ppa:brightbox/ruby-ng-experimental"
 
 package "nginx-full"
 
-if ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/default")
-  execute "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/default"
+execute "remove default site" do
+  command "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/default"
+  only_if { ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/default") }
 end
 
 service "nginx" do
