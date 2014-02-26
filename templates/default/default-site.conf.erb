@@ -25,6 +25,12 @@ server {
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
 
+  <% if node['nginx_ng']['format_blacklist'].any? %>
+  location ~ (\<%= node['nginx_ng']['format_blacklist'].join("|") %>) {
+    return 404;
+  }
+  <% end -%>
+
   location ~ ^/(assets)/  {
     root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
@@ -70,6 +76,12 @@ server {
   rack_env <%= @application["rails_env"] || node.chef_environment %>;
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
+
+  <% if node['nginx_ng']['format_blacklist'].any? %>
+  location ~ (\<%= node['nginx_ng']['format_blacklist'].join("|") %>) {
+    return 404;
+  }
+  <% end -%>
 
   location ~ ^/(assets)/  {
     root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
