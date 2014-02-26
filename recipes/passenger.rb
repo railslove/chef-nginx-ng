@@ -18,11 +18,11 @@
 #
 include_recipe "nginx_ng"
 
-if node[:passenger][:ruby_version] == "1.9.1"
+if node[:passenger][:ruby_version].to_s =~ /^1\.9/
   package "passenger-common1.9.1"
 end
 
-if node[:passenger][:ruby_version] == "2.0.0" || node[:passenger][:ruby_version] == "2.1.0"
+if node[:passenger][:ruby_version].to_s =~ /^2\./
   node.set[:passenger][:root] = "/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini"
   package "nginx-extras"
   package "passenger"
