@@ -18,7 +18,7 @@ define :nginx_ng_web_app, :template => "default-site.conf.erb" do
       :params => params
     )
     if ::File.exists?("#{node[:nginx_ng][:dir]}/sites-enabled/#{application_name}.conf")
-      notifies :restart, resources(:service => "nginx"), :delayed
+      notifies :reload, resources(:service => "nginx"), :delayed
     end
   end
 
