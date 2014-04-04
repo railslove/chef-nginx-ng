@@ -24,7 +24,6 @@ end
 
 if node[:passenger][:ruby_version].to_s =~ /^2\./
   node.set[:passenger][:root] = "/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini"
-  package "nginx-extras"
   package "passenger"
 end
 

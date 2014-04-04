@@ -21,7 +21,11 @@ package "python-software-properties"
 
 execute "apt-add-repository -y ppa:brightbox/ruby-ng"
 
-package "nginx-full"
+if node[:passenger][:ruby_version].to_s =~ /^2\./
+  package "nginx-extras"
+else
+  package "nginx-full"
+end
 
 execute "remove default site" do
   command "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/default"
