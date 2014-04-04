@@ -11,6 +11,7 @@ server {
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
+  passenger_set_cgi_param PATH "/usr/bin";
   passenger_enabled on;
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
