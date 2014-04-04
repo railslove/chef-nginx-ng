@@ -21,13 +21,13 @@ define :nginx_ng_site, :enable => true do
   if params[:enable]
     execute "nxng_ensite #{params[:name]}" do
       command "ln -s #{node[:nginx_ng][:dir]}/sites-available/#{params[:name]} #{node[:nginx_ng][:dir]}/sites-enabled/#{params[:name]}"
-      notifies :restart, resources(:service => "nginx")
+      notifies :reload, resources(:service => "nginx")
       not_if do ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/#{params[:name]}") end
     end
   else
     execute "nxng_dissite #{params[:name]}" do
       command "rm -rf #{node[:nginx_ng][:dir]}/sites-enabled/#{params[:name]}"
-      notifies :restart, resources(:service => "nginx")
+      notifies :reload, resources(:service => "nginx")
       only_if do ::File.symlink?("#{node[:nginx_ng][:dir]}/sites-enabled/#{params[:name]}") end
     end
   end
