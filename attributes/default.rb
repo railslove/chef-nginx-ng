@@ -43,4 +43,4 @@ set[:nginx_ng][:proxy_redirect] = "off"
 set[:nginx_ng][:ssl_protocols] = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
 set[:nginx_ng][:ssl_ciphers]   = ["RC4", "HIGH", "!aNULL", "!MD5"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
-set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin"]
+set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin", "webdav"]
