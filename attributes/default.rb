@@ -41,6 +41,6 @@ set[:nginx_ng][:proxy_temp_file_write_size] = "64k"
 set[:nginx_ng][:proxy_redirect] = "off"
 
 set[:nginx_ng][:ssl_protocols] = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
-set[:nginx_ng][:ssl_ciphers]   = ["RC4", "HIGH", "!aNULL", "!MD5"]
+set[:nginx_ng][:ssl_ciphers]   = ["EECDH+ECDSA+AESGCM", "EECDH+aRSA+AESGCM", "EECDH+ECDSA+SHA384", "EECDH+ECDSA+SHA256", "EECDH+aRSA+SHA384", "EECDH+aRSA+SHA256", "EECDH+aRSA+RC4", "EECDH", "EDH+aRSA", "RC4", "!aNULL", "!eNULL", "!LOW", "!3DES", "!MD5", "!EXP", "!PSK", "!SRP", "!DSS"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
 set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin", "webdav"]
