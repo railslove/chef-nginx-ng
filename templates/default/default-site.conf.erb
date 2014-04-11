@@ -52,6 +52,19 @@ server {
   }
   <% end -%>
 
+  <% if @application["maintenance_mode"] %>
+  if (-f $document_root/503.html) {
+    return 503;
+  }
+
+  error_page 503 @maintenance;
+
+  location @maintenance {
+    if ($uri !~ ^/error_assets/) {
+      rewrite ^(.*)$ /503.html break;
+    }
+  }
+  <% end -%>
 }
 
 <% if @certificate %>
@@ -112,5 +125,18 @@ server {
   }
   <% end -%>
 
+  <% if @application["maintenance_mode"] %>
+  if (-f $document_root/503.html) {
+    return 503;
+  }
+
+  error_page 503 @maintenance;
+
+  location @maintenance {
+    if ($uri !~ ^/error_assets/) {
+      rewrite ^(.*)$ /503.html break;
+    }
+  }
+  <% end -%>
 }
 <% end %>
