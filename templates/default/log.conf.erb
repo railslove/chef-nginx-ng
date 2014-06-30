@@ -1,0 +1,3 @@
+<% node[:nginx_ng][:log_formats].each do |name, format| %>
+log_format <%=name%> '<%=format%>';
+<% end -%>

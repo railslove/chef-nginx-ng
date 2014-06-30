@@ -18,7 +18,7 @@ server {
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
 
   <% if @application["id"] %>
-  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log combined;
+  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log <%= node[:nginx_ng][:log_formats].keys.first || 'combined' %>;
   error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;
   <% end -%>
 
@@ -76,7 +76,7 @@ server {
   <% end %>
 
   <% if @application["id"] %>
-  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log combined;
+  access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log <%= node[:nginx_ng][:log_formats].keys.first || 'combined' %>;
   error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;
   <% end -%>
 

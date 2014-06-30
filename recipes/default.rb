@@ -36,3 +36,9 @@ service "nginx" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
+
+template "/etc/nginx/conf.d/log.conf" do
+  source "log.conf.erb"
+  notifies :reload, resources(:service => "nginx"), :delayed
+  only_if { node[:nginx_ng][:log_formats].any? }
+end

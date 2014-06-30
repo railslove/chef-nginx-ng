@@ -44,3 +44,6 @@ set[:nginx_ng][:ssl_protocols] = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
 set[:nginx_ng][:ssl_ciphers]   = ["EECDH+ECDSA+AESGCM", "EECDH+aRSA+AESGCM", "EECDH+ECDSA+SHA384", "EECDH+ECDSA+SHA256", "EECDH+aRSA+SHA384", "EECDH+aRSA+SHA256", "EECDH+aRSA+RC4", "EECDH", "EDH+aRSA", "RC4", "!aNULL", "!eNULL", "!LOW", "!3DES", "!MD5", "!EXP", "!PSK", "!SRP", "!DSS"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
 set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin", "webdav"]
+set[:nginx_ng][:log_formats] = {
+  "graylog" => "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\" <msec=$msec|connection=$connection|connection_requests=$connection_requests|millis=$request_time>"
+}
