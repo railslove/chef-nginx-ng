@@ -40,6 +40,8 @@ action :create do
   search("#{new_resource.data_bag}", "#{query}") do |item|
     site = Chef::Mixin::DeepMerge.merge(item.to_hash, (item[node.chef_environment] || {}))
 
+    next if site['server_names'].empty?
+
     cert = site['certificate'] ? search("#{new_resource.certificate_data_bag}", "id:#{site['certificate']}").first : nil
     nginx_ng_web_app site['id'] do
       application site
