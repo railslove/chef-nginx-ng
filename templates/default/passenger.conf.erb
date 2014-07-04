@@ -3,3 +3,6 @@
 
 passenger_root <%= node[:passenger][:root]%>;
 passenger_max_pool_size <%= node[:passenger][:max_pool_size]%>;
+<% if node[:passenger][:ruby] %>
+passenger_ruby <%= node[:passenger][:ruby] %>;
+<% end -%>
