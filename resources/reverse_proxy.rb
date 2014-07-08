@@ -25,6 +25,7 @@ actions :create, :remove
 # :certificate_data_bag is the object to look for certificates
 # :cookbook is the name of the cookbook that the authorized_keys template should be found in
 attribute :data_bag, :kind_of => String, :default => "applications", :name_attribute => true
+attribute :certificate_data_bag, :kind_of => String, :default => "certificates"
 attribute :cookbook, :kind_of => String, :default => "nginx_ng"
 
 def initialize(*args)

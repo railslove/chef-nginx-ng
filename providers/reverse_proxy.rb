@@ -41,13 +41,15 @@ action :create do
 
   search("#{new_resource.data_bag}", "#{query}") do |item|
     site = Chef::Mixin::DeepMerge.merge(item.to_hash, (item[node.chef_environment] || {}))
-    query = "(#{site[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
+    query = "(#{site[:proxy_roles].map{|r| "roles:#{r}" }.join(" OR ")})"
     nodes = search(:node, "#{query}").to_a
+    cert = site['certificate'] ? search("#{new_resource.certificate_data_bag}", "id:#{site['certificate']}").first : nil
     Chef::Log.info("Found #{nodes.count} nodes!")
     nginx_ng_web_app "#{site['id']}_proxy" do
       application site
       external site['externals']['reverse_proxy']
       hosts nodes
+      certificate cert
       template "default-site-proxy.conf.erb"
     end
   end
