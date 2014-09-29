@@ -5,6 +5,7 @@ set[:passenger][:min_instances] = 1;
 set[:passenger][:max_pool_size] = 6;
 set[:passenger][:spawn_method] = "smart";
 set[:passenger][:passenger_friendly_error_pages] = "off";
+set[:passenger][:passenger_load_shell_envvars] = "off";
 
 case platform
 when "debian","ubuntu"

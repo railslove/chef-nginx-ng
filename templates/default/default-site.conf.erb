@@ -16,6 +16,7 @@ server {
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
+  passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;
 
   <% if @application["id"] %>
   access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log <%= node[:nginx_ng][:log_formats].keys.first || 'combined' %>;
