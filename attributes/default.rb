@@ -41,7 +41,7 @@ set[:nginx_ng][:proxy_temp_file_write_size] = "64k"
 # This directive sets the text, which must be changed in response-header "Location" and "Refresh" in the response of the proxied server.
 set[:nginx_ng][:proxy_redirect] = "off"
 
-set[:nginx_ng][:ssl_protocols] = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
+set[:nginx_ng][:ssl_protocols] = ["TLSv1", "TLSv1.1", "TLSv1.2"]
 set[:nginx_ng][:ssl_ciphers]   = ["EECDH+ECDSA+AESGCM", "EECDH+aRSA+AESGCM", "EECDH+ECDSA+SHA384", "EECDH+ECDSA+SHA256", "EECDH+aRSA+SHA384", "EECDH+aRSA+SHA256", "EECDH+aRSA+RC4", "EECDH", "EDH+aRSA", "RC4", "!aNULL", "!eNULL", "!LOW", "!3DES", "!MD5", "!EXP", "!PSK", "!SRP", "!DSS"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
 set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin", "webdav"]
