@@ -18,6 +18,12 @@ server {
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
   passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;
 
+  <% if @environment_variables %>
+    <% (@environment_variables["env"] || {}).each do |var, value| %>
+  passenger_set_cgi_param <%= var %> "<%= value %>";
+    <% end %>
+  <% end %>
+
   <% if @application["id"] %>
   access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log <%= node[:nginx_ng][:log_formats].keys.first || 'combined' %>;
   error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;

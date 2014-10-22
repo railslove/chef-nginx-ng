@@ -26,6 +26,7 @@ actions :create, :remove
 # :cookbook is the name of the cookbook that the authorized_keys template should be found in
 attribute :data_bag, :kind_of => String, :default => "applications"
 attribute :certificate_data_bag, :kind_of => String, :default => "certificates"
+attribute :variables_data_bag, :kind_of => String, :default => "variables"
 attribute :cookbook, :kind_of => String, :default => "nginx_ng"
 attribute :site,     :kind_of => String, :name_attribute => true
 

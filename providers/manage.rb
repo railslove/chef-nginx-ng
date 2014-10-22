@@ -22,6 +22,16 @@ def initialize(*args)
   @action = :create
 end
 
+def environment_variables_for(site)
+  Chef::EncryptedDataBagItem.load(new_resource.variables_data_bag, site[:id])
+rescue ArgumentError
+  Chef::Log.info("attempting to load environment_variables for #{site[:id]} but cannot decrypt")
+  nil
+rescue Net::HTTPServerException
+  Chef::Log.debug("no environment_variables for #{site[:id]}. but thats totally ok!")
+  nil
+end
+
 action :remove do
   query = "NOT (#{node[:roles].map{|r| "roles:#{r}" }.join(" OR ")})"
   Chef::Log.info("Running query: #{query}")
@@ -42,10 +52,12 @@ action :create do
 
     next if site['server_names'].empty?
 
+    environment_variables = environment_variables_for(site)
     cert = site['certificate'] ? search("#{new_resource.certificate_data_bag}", "id:#{site['certificate']}").first : nil
     nginx_ng_web_app site['id'] do
       application site
       certificate cert
+      environment_variables environment_variables
       if site['server']
         template "default-site-#{site['server']}.conf.erb"
       end

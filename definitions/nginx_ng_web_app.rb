@@ -2,6 +2,7 @@ define :nginx_ng_web_app, :template => "default-site.conf.erb" do
   application_name = params[:name]
   application = params[:application]
   certificate = params[:certificate]
+  environment_variables = params[:environment_variables]
 
   template "#{node[:nginx_ng][:dir]}/sites-available/#{application_name}.conf" do
     source params[:template]
@@ -15,6 +16,7 @@ define :nginx_ng_web_app, :template => "default-site.conf.erb" do
       :application => application,
       :certificate => certificate,
       :application_name => application_name,
+      :environment_variables => environment_variables,
       :params => params
     )
     if ::File.exists?("#{node[:nginx_ng][:dir]}/sites-enabled/#{application_name}.conf")
