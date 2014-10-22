@@ -115,6 +115,11 @@ server {
 
   ssl on;
 
+  # enable session resumption to improve https performance
+  # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
+  ssl_session_cache <%= node[:nginx_ng][:ssl_session_cache].join(" ") %>;
+  ssl_session_timeout <%= node[:nginx_ng][:ssl_session_timeout] %>;
+
   ssl_protocols <%= node[:nginx_ng][:ssl_protocols].join(" ") %>;
   ssl_ciphers <%= node[:nginx_ng][:ssl_ciphers].join(":") %>;
   ssl_prefer_server_ciphers <%= node[:nginx_ng][:ssl_prefer_server_ciphers] %>;

@@ -41,6 +41,11 @@ set[:nginx_ng][:proxy_temp_file_write_size] = "64k"
 # This directive sets the text, which must be changed in response-header "Location" and "Refresh" in the response of the proxied server.
 set[:nginx_ng][:proxy_redirect] = "off"
 
+# Sets the types and sizes of caches that store session parameters.
+set[:nginx_ng][:ssl_session_cache] = ["shared:SSL:50m"]
+# Specifies a time during which a client may reuse the session parameters stored in a cache.
+set[:nginx_ng][:ssl_session_timeout] = "5m"
+
 set[:nginx_ng][:ssl_protocols] = ["TLSv1", "TLSv1.1", "TLSv1.2"]
 set[:nginx_ng][:ssl_ciphers]   = ["EECDH+ECDSA+AESGCM", "EECDH+aRSA+AESGCM", "EECDH+ECDSA+SHA384", "EECDH+ECDSA+SHA256", "EECDH+aRSA+SHA384", "EECDH+aRSA+SHA256", "EECDH+aRSA+RC4", "EECDH", "EDH+aRSA", "RC4", "!aNULL", "!eNULL", "!LOW", "!3DES", "!MD5", "!EXP", "!PSK", "!SRP", "!DSS"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
