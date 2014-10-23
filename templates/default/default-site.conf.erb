@@ -95,6 +95,12 @@ server {
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
 
+  <% if @environment_variables %>
+    <% (@environment_variables["env"] || {}).each do |var, value| %>
+  passenger_set_cgi_param <%= var %> "<%= value %>";
+    <% end %>
+  <% end %>
+
   rack_env <%= @application["rails_env"] || node.chef_environment %>;
 
   client_max_body_size <%= node[:nginx_ng][:client_max_body_size] %>;
