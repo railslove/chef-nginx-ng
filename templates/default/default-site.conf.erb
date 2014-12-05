@@ -16,7 +16,10 @@ server {
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
+
+  <% if node[:passenger][:ruby_version].to_s =~ /^2\./ %>
   passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;
+  <% end %>
 
   <% if @environment_variables %>
     <% (@environment_variables["env"] || {}).each do |var, value| %>
@@ -94,6 +97,10 @@ server {
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
+
+  <% if node[:passenger][:ruby_version].to_s =~ /^2\./ %>
+  passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;
+  <% end %>
 
   <% if @environment_variables %>
     <% (@environment_variables["env"] || {}).each do |var, value| %>
