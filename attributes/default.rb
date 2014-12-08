@@ -47,7 +47,7 @@ set[:nginx_ng][:ssl_session_cache] = ["shared:SSL:50m"]
 set[:nginx_ng][:ssl_session_timeout] = "5m"
 
 set[:nginx_ng][:ssl_protocols] = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-set[:nginx_ng][:ssl_ciphers]   = ["EECDH+ECDSA+AESGCM", "EECDH+aRSA+AESGCM", "EECDH+ECDSA+SHA384", "EECDH+ECDSA+SHA256", "EECDH+aRSA+SHA384", "EECDH+aRSA+SHA256", "EECDH+aRSA+RC4", "EECDH", "EDH+aRSA", "RC4", "!aNULL", "!eNULL", "!LOW", "!3DES", "!MD5", "!EXP", "!PSK", "!SRP", "!DSS"]
+set[:nginx_ng][:ssl_ciphers]   = ["ECDHE-RSA-AES256-GCM-SHA384", "ECDHE-RSA-AES128-GCM-SHA256", "DHE-RSA-AES256-GCM-SHA384", "DHE-RSA-AES128-GCM-SHA256", "ECDHE-RSA-AES256-SHA384", "ECDHE-RSA-AES128-SHA256", "ECDHE-RSA-AES256-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-AES256-SHA256", "DHE-RSA-AES128-SHA256", "DHE-RSA-AES256-SHA", "DHE-RSA-AES128-SHA", "ECDHE-RSA-DES-CBC3-SHA", "EDH-RSA-DES-CBC3-SHA", "AES256-GCM-SHA384", "AES128-GCM-SHA256", "AES256-SHA256", "AES128-SHA256", "AES256-SHA", "AES128-SHA", "DES-CBC3-SHA", "HIGH", "!aNULL", "!eNULL", "!EXPORT", "!DES", "!MD5", "!PSK", "!RC4"]
 set[:nginx_ng][:ssl_prefer_server_ciphers] = "on"
 set[:nginx_ng][:format_blacklist] = [".php", ".aspx", ".asp", ".cgi", "myadmin", "webdav"]
 set[:nginx_ng][:log_formats] = {
