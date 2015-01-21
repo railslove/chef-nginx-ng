@@ -19,7 +19,9 @@
 
 package "python-software-properties"
 
-execute "apt-add-repository -y ppa:brightbox/ruby-ng"
+if platform?('ubuntu')
+  execute "apt-add-repository -y ppa:brightbox/ruby-ng"
+end
 
 if node[:passenger][:ruby_version].to_s =~ /^2\./
   package "nginx-extras"
