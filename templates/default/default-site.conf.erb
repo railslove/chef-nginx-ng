@@ -11,7 +11,12 @@ server {
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
+  <% if node[:passenger][:version].to_s =~ /^5\./ %>
+  passenger_env_var PATH "/usr/bin";
+  <% else %>
   passenger_set_cgi_param PATH "/usr/bin";
+  <% end %>
+
   passenger_enabled on;
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
@@ -23,7 +28,11 @@ server {
 
   <% if @environment_variables %>
     <% (@environment_variables["env"] || {}).each do |var, value| %>
+  <% if node[:passenger][:version].to_s =~ /^5\./ %>
+  passenger_env_var <%= var %> "<%= value %>";
+  <% else %>
   passenger_set_cgi_param <%= var %> "<%= value %>";
+  <% end %>
     <% end %>
   <% end %>
 
@@ -92,7 +101,12 @@ server {
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
+  <% if node[:passenger][:version].to_s =~ /^5\./ %>
+  passenger_env_var PATH "/usr/bin";
+  <% else %>
   passenger_set_cgi_param PATH "/usr/bin";
+  <% end %>
+
   passenger_enabled on;
   passenger_spawn_method <%= node[:passenger][:spawn_method] %>;
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
@@ -104,7 +118,11 @@ server {
 
   <% if @environment_variables %>
     <% (@environment_variables["env"] || {}).each do |var, value| %>
+  <% if node[:passenger][:version].to_s =~ /^5\./ %>
+  passenger_env_var <%= var %> "<%= value %>";
+  <% else %>
   passenger_set_cgi_param <%= var %> "<%= value %>";
+  <% end %>
     <% end %>
   <% end %>
 
