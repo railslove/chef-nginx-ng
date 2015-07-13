@@ -33,6 +33,7 @@ define :nginx_ng_web_app, :template => "default-site.conf.erb" do
         mode "0644"
         action :create
         content certificate[ssl_attribute]
+        notifies :reload, resources(:service => "nginx"), :delayed
       end
     end
   end
