@@ -22,7 +22,8 @@ server {
   passenger_min_instances <%= node[:passenger][:min_instances] %>;
   passenger_friendly_error_pages <%= node[:passenger][:passenger_friendly_error_pages] %>;
 
-  passenger_show_version_in_header <%= node[:passenger][:passenger_show_version_in_header];
+  passenger_show_version_in_header <%= node[:passenger][:passenger_show_version_in_header] %>;
+  server_tokens <%= node[:nginx_ng][:server_tokens] %>;
 
   <% if node[:passenger][:ruby_version].to_s =~ /^2\./ %>
   passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;

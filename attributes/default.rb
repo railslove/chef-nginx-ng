@@ -22,6 +22,8 @@ else
   set[:nginx_ng][:binary]  = "/usr/sbin/nginx"
 end
 
+# do not expose version of nginx
+set[:nginx_ng][:server_tokens] = "off";
 # Specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
 set[:nginx_ng][:client_max_body_size] = "50M"
 # If the request body size is more than the buffer size, then the entire (or partial) request body is written into a temporary file.
