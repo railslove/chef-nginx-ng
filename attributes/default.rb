@@ -7,8 +7,6 @@ set[:passenger][:spawn_method] = "smart";
 set[:passenger][:passenger_friendly_error_pages] = "off";
 set[:passenger][:passenger_load_shell_envvars] = "off";
 
-set[:passenger][:passenger_show_version_in_header] = "off";
-
 case platform
 when "debian","ubuntu"
   set[:nginx_ng][:dir]     = "/etc/nginx"
