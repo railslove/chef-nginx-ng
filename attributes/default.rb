@@ -20,6 +20,10 @@ else
   set[:nginx_ng][:binary]  = "/usr/sbin/nginx"
 end
 
+# set Strict Transport Security Headers
+set[:nginx_ng][:hsts_headers] = "max-age=31536000";
+# set X-Frame-Otions Header
+set[:nginx_ng][:x_frame_options] = "SAMEORIGIN";
 # do not expose version of nginx
 set[:nginx_ng][:server_tokens] = "off";
 # Specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.

@@ -24,6 +24,10 @@ server {
 
   server_tokens <%= node[:nginx_ng][:server_tokens] %>;
 
+  <% if node[:nginx_ng][:x_frame_options] %>
+    add_header X-Frame-Options <%= node[:nginx_ng][:x_frame_options] %>;
+  <% end -%>
+
   <% if node[:passenger][:ruby_version].to_s =~ /^2\./ %>
   passenger_load_shell_envvars <%= node[:passenger][:passenger_load_shell_envvars] %>;
   <% end %>
@@ -96,6 +100,8 @@ server {
   server_name <%= name %>;
   <% end %>
 
+  server_tokens <%= node[:nginx_ng][:server_tokens] %>;
+
   <% if @application["id"] %>
   access_log <%= node['nginx_ng']['log_dir'] %>/access-<%= @application["id"] %>.log <%= node[:nginx_ng][:log_formats].keys.first || 'combined' %>;
   error_log <%= node['nginx_ng']['log_dir'] %>/error-<%= @application["id"] %>.log error;
@@ -159,6 +165,14 @@ server {
 
   ssl_certificate      /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.crt;
   ssl_certificate_key  /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.key;
+
+  <% if node[:nginx_ng][:hsts_headers] %>
+    add_header Strict-Transport-Security <%= node[:nginx_ng][:hsts_headers] %>;
+  <% end -%>
+
+  <% if node[:nginx_ng][:x_frame_options] %>
+    add_header X-Frame-Options <%= node[:nginx_ng][:x_frame_options] %>;
+  <% end -%>
 
   if ($ssl_protocol = "") {
     rewrite ^   https://$server_name$request_uri? permanent;
