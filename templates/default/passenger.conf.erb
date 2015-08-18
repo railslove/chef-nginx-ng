@@ -6,3 +6,5 @@ passenger_max_pool_size <%= node[:passenger][:max_pool_size]%>;
 <% if node[:passenger][:ruby] %>
 passenger_ruby <%= node[:passenger][:ruby] %>;
 <% end -%>
+
+passenger_show_version_in_header <%= node[:passenger][:passenger_show_version_in_header] %>;
