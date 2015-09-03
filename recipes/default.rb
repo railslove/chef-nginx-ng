@@ -20,7 +20,14 @@
 package "python-software-properties"
 
 if platform?('ubuntu')
-  execute "apt-add-repository -y ppa:brightbox/ruby-ng"
+  apt_repository 'ruby-ng' do
+    uri 'http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu'
+    components ['main']
+    distribution node['lsb']['codename']
+    key 'C3173AA6'
+    keyserver 'keyserver.ubuntu.com'
+    action :add
+  end
 end
 
 if node[:passenger][:ruby_version].to_s =~ /^2\./

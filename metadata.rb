@@ -5,3 +5,5 @@ description      "Installs/Configures nging-ng"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.8.5"
 name             "nginx_ng"
+
+depends          "apt"
