@@ -163,6 +163,10 @@ server {
   ssl_ciphers <%= node[:nginx_ng][:ssl_ciphers].join(":") %>;
   ssl_prefer_server_ciphers <%= node[:nginx_ng][:ssl_prefer_server_ciphers] %>;
 
+  <% if node[:nginx_ng][:dhparams] %>
+  ssl_dhparam <%= "#{node[:nginx_ng][:dir]}/conf.d/dhparams.pem" %>;
+  <% end -%>
+
   ssl_certificate      /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.crt;
   ssl_certificate_key  /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.key;
 

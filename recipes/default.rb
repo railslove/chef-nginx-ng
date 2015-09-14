@@ -51,3 +51,14 @@ template "/etc/nginx/conf.d/log.conf" do
   notifies :reload, resources(:service => "nginx"), :delayed
   only_if { node[:nginx_ng][:log_formats].any? }
 end
+
+file "#{node[:nginx_ng][:dir]}/conf.d/dhparams.pem" do
+  owner "root"
+  group "root"
+  mode "0644"
+  action :create
+  content node[:nginx_ng][:dhparams]
+  notifies :reload, resources(:service => "nginx"), :delayed
+  only_if { node[:nginx_ng][:dhparams] }
+end
+
