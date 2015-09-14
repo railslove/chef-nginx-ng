@@ -25,6 +25,15 @@ If you do so make sure you override them in the `override_attributes`:
 See `attributes/default.rb` for possible parameters and the defaults and
 a short description of what they do.
 
+### DH params
+
+`dhparams` can be set to custom DH parameters, in order to be protected against [logjam](https://weakdh.org/)
+ attacks. New parameters can be generated with the following command:
+
+     openssl dhparam -out dhparams.pem 2048
+
+Supply them as string containing newline characters.
+
 Usage
 =====
 
