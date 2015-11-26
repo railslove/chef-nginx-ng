@@ -90,6 +90,31 @@ server {
     }
   }
   <% end -%>
+
+  <% (@application["proxy"] || {}).each do |location, upstream| %>
+  location <%= location %> {
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+
+    client_max_body_size       <%= node[:nginx_ng][:client_max_body_size] %>;
+    client_body_buffer_size    <%= node[:nginx_ng][:client_body_buffer_size] %>;
+
+    proxy_connect_timeout      <%= node[:nginx_ng][:proxy_connect_timeout] %>;
+    proxy_send_timeout         <%= node[:nginx_ng][:proxy_send_timeout] %>;
+    proxy_read_timeout         <%= node[:nginx_ng][:proxy_read_timeout] %>;
+
+    proxy_buffer_size          <%= node[:nginx_ng][:proxy_buffer_size] %>;
+    proxy_buffers              <%= node[:nginx_ng][:proxy_buffers] %>;
+    proxy_busy_buffers_size    <%= node[:nginx_ng][:proxy_busy_buffers_size] %>;
+    proxy_temp_file_write_size <%= node[:nginx_ng][:proxy_temp_file_write_size] %>;
+    proxy_redirect             <%= node[:nginx_ng][:proxy_redirect] %>;
+
+
+    proxy_pass <%=upstream%>;
+  }
+  <% end -%>
+
 }
 
 <% if @certificate %>
@@ -199,6 +224,30 @@ server {
     if ($uri !~ ^/error_assets/) {
       rewrite ^(.*)$ /503.html break;
     }
+  }
+  <% end -%>
+
+  <% (@application["proxy"] || {}).each do |location, upstream| %>
+  location <%= location %> {
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+
+    client_max_body_size       <%= node[:nginx_ng][:client_max_body_size] %>;
+    client_body_buffer_size    <%= node[:nginx_ng][:client_body_buffer_size] %>;
+
+    proxy_connect_timeout      <%= node[:nginx_ng][:proxy_connect_timeout] %>;
+    proxy_send_timeout         <%= node[:nginx_ng][:proxy_send_timeout] %>;
+    proxy_read_timeout         <%= node[:nginx_ng][:proxy_read_timeout] %>;
+
+    proxy_buffer_size          <%= node[:nginx_ng][:proxy_buffer_size] %>;
+    proxy_buffers              <%= node[:nginx_ng][:proxy_buffers] %>;
+    proxy_busy_buffers_size    <%= node[:nginx_ng][:proxy_busy_buffers_size] %>;
+    proxy_temp_file_write_size <%= node[:nginx_ng][:proxy_temp_file_write_size] %>;
+    proxy_redirect             <%= node[:nginx_ng][:proxy_redirect] %>;
+
+
+    proxy_pass <%=upstream%>;
   }
   <% end -%>
 }
