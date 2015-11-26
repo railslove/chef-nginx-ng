@@ -3,7 +3,7 @@
 # <%= node[:roles].inspect %>
 
 server {
-  listen 80;
+  listen <%= @application["http_port"] || 80 %>;
 
   <% @application["server_names"].each do |name|%>
   server_name <%= name %>;
@@ -94,7 +94,7 @@ server {
 
 <% if @certificate %>
 server {
-  listen 443;
+  listen <%= @application["https_port"] || 443 %>;
 
   <% @application["server_names"].each do |name|%>
   server_name <%= name %>;
