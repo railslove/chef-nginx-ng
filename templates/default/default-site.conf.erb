@@ -117,7 +117,7 @@ server {
 
 }
 
-<% if @certificate %>
+<% if @certificate || @application['letsencrypt'] %>
 server {
   listen <%= @application["https_port"] || 443 %>;
 
@@ -192,8 +192,13 @@ server {
   ssl_dhparam <%= "#{node[:nginx_ng][:dir]}/conf.d/dhparams.pem" %>;
   <% end -%>
 
+  <% if @certificate %>
   ssl_certificate      /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.crt;
   ssl_certificate_key  /<%= node[:nginx_ng][:dir] %>/ssl/<%= @certificate["id"] %>.key;
+  <% else -%>
+  ssl_certificate      /etc/letsencrypt/live/<%= @application["server_names"].first %>/fullchain.pem;
+  ssl_certificate_key  /etc/letsencrypt/live/<%= @application["server_names"].first %>/privkey.pem;
+  <% end -%>
 
   <% if node[:nginx_ng][:hsts_headers] %>
     add_header Strict-Transport-Security <%= node[:nginx_ng][:hsts_headers] %>;
