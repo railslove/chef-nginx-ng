@@ -11,10 +11,10 @@ server {
 
   root <%= "#{@application["root_dir"] || node[:passenger][:www_dir]}/#{@application["id"]}/current/public" %>;
 
-  <% if node[:passenger][:version].to_s =~ /^5\./ %>
-  passenger_env_var PATH "/usr/bin";
-  <% else %>
+  <% if node[:passenger][:version].to_s =~ /^[1-4]\./ %>
   passenger_set_cgi_param PATH "/usr/bin";
+  <% else %>
+  passenger_env_var PATH "/usr/bin";
   <% end %>
 
   passenger_enabled on;
